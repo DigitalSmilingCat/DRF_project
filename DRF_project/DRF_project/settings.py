@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'pereval',
+    'rest_framework',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -80,10 +83,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'drf',
-        'USER': os.getenv('DRF_DB_LOGIN'),
-        'PASSWORD': os.getenv('DRF_DB_PASSWORD'),
-        'HOST': os.getenv('DRF_DB_HOST'),
-        'PORT': os.getenv('DRF_DB_PORT'),
+        'USER': os.getenv('FSTR_DB_LOGIN'),
+        'PASSWORD': os.getenv('FSTR_DB_PASS'),
+        'HOST': os.getenv('FSTR_DB_HOST'),
+        'PORT': os.getenv('FSTR_DB_PORT'),
     }
 }
 
