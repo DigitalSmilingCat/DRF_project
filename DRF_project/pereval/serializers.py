@@ -20,6 +20,7 @@ class UserSerializer(serializers.ModelSerializer):
             user.save()
         return user
 
+
 class CoordsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Coords
