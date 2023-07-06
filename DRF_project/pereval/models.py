@@ -3,11 +3,11 @@ from django.core.validators import RegexValidator
 
 
 class User(models.Model):
-    email = models.CharField(max_length=50, unique=True)
+    email = models.CharField(max_length=50)
     fam = models.CharField(max_length=50, verbose_name='Фамилия')
     name = models.CharField(max_length=50, verbose_name='Имя')
     otc = models.CharField(max_length=50, verbose_name='Отчество')
-    phone_regex = RegexValidator(regex=r'^\+\d{6,15}$', message="Номер телефона должен быть введен в формате: '+799999999'. Максимум 15 цифр.")
+    phone_regex = RegexValidator(regex=r'^\+?[\d\s]{6,15}$', message="Номер телефона должен быть введен в формате: '+799999999'. Максимум 15 цифр.")
     phone = models.CharField(validators=[phone_regex], verbose_name='Номер телефона', max_length=16, blank=True, null=True)
 
     class Meta:
