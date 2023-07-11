@@ -23,11 +23,11 @@ from django.conf import settings
 
 
 router = routers.DefaultRouter()
-router.register(r'Pereval', PerevalViewSet, basename='pereval')
-router.register(r'User', UserViewSet, basename='user')
-router.register(r'Coords', CoordsViewSet, basename='coords')
-router.register(r'Level', LevelViewSet, basename='level')
-router.register(r'Images', ImagesViewSet, basename='images')
+router.register(r'submitData', PerevalViewSet, basename='pereval')
+# router.register(r'User', UserViewSet, basename='user')
+# router.register(r'Coords', CoordsViewSet, basename='coords')
+# router.register(r'Level', LevelViewSet, basename='level')
+# router.register(r'Images', ImagesViewSet, basename='images')
 
 
 urlpatterns = [

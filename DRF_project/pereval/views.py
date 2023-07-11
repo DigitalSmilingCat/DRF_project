@@ -26,6 +26,7 @@ class ImagesViewSet(viewsets.ModelViewSet):
 class PerevalViewSet(viewsets.ModelViewSet):
     queryset = Pereval.objects.all()
     serializer_class = PerevalSerializer
+    filterset_fields = ('user__email',)
 
     def create(self, request, *args, **kwargs):
         serializer = PerevalSerializer(data=request.data)
