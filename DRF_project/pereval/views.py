@@ -49,3 +49,25 @@ class PerevalViewSet(viewsets.ModelViewSet):
                 'message': 'Ошибка подключения к базе данных',
                 'id': None,
             })
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        pereval = self.get_object()
+        if pereval.status == 'new':
+            serializer = PerevalSerializer(pereval, data=request.data, partial=partial)
+            if serializer.is_valid():
+                serializer.save()
+                return Response({
+                    'state': '1',
+                    'message': f'Данные записи успешно изменены {"PATCH" if partial else "PUT"}-запросом'
+                })
+            else:
+                return Response({
+                    'state': '0',
+                    'message': serializer.errors
+                })
+        else:
+            return Response({
+                'state': '0',
+                'message': f"Отклонено! Причина: {pereval.get_status_display()}"
+            })
