@@ -1,9 +1,11 @@
 from rest_framework.response import Response
 from .serializers import *
 from rest_framework import viewsets, status
+from drf_yasg.utils import swagger_auto_schema
 
 
 class UserViewSet(viewsets.ModelViewSet):
+    swagger_schema = None
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
@@ -34,13 +36,13 @@ class PerevalViewSet(viewsets.ModelViewSet):
             instance = serializer.save()
             return Response({
                 'status': status.HTTP_200_OK,
-                'message': f'Pereval №{instance.id} was successfully created',
+                'message': f'Запись №{instance.id} была создана',
                 'id': instance.id,
             })
         if status.HTTP_400_BAD_REQUEST:
             return Response({
                 'status': status.HTTP_400_BAD_REQUEST,
-                'message': 'Bad Request',
+                'message': 'Параметры запроса некорректны',
                 'id': None,
             })
         if status.HTTP_500_INTERNAL_SERVER_ERROR:
@@ -66,6 +68,20 @@ class PerevalViewSet(viewsets.ModelViewSet):
                     'state': '0',
                     'message': serializer.errors
                 })
+        else:
+            return Response({
+                'state': '0',
+                'message': f"Отклонено! Причина: {pereval.get_status_display()}"
+            })
+
+    def destroy(self, request, *args, **kwargs):
+        pereval = self.get_object()
+        if pereval.status == 'new':
+            self.perform_destroy(pereval)
+            return Response({
+                'state': '1',
+                'message': f'Запись успешно удалена'
+            })
         else:
             return Response({
                 'state': '0',

@@ -18,8 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from pereval.views import *
 from rest_framework import routers
-from django.conf.urls.static import static
-from django.conf import settings
+from .yasg import urlpatterns as yasg_urls
 
 
 router = routers.DefaultRouter()
@@ -36,4 +35,4 @@ urlpatterns = [
 ]
 
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += yasg_urls
